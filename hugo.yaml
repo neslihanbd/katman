@@ -2,7 +2,7 @@
 # Tema (PaperMod) Hugo modülü olarak gelir; sürüm go.mod içinde sabitlenir.
 # Temaya dokunulmaz, tüm değişiklikler layouts/, assets/ ve i18n/ altındadır.
 
-baseURL: https://katman-uskudar.netlify.app/   # Netlify'da build komutu --baseURL ile ezer
+baseURL: https://katmanlar.netlify.app/   # Netlify'da build komutu --baseURL ile ezer
 locale: tr-TR
 defaultContentLanguage: tr
 title: Katman

@@ -8,7 +8,7 @@ Bu rehber, Katman sitesini sıfırdan yayına almak için tek seferlik kurulum a
 
 - Hugo + PaperMod teması (Hugo modülü, `go.mod` içinde sabit) + Decap CMS 3.17.1.
 - Kod ve içerik GitHub'da: `sadettindemirel/katman` (public).
-- Yayın Netlify'da (Free plan). Site adresi önerisi: `https://katman-uskudar.netlify.app`, panel: `/admin/`.
+- Yayın Netlify'da (Free plan). Site adresi: `https://katmanlar.netlify.app` (Netlify proje adı: `katmanlar`), panel: `/admin/`.
 - Kimlik doğrulama: Netlify'ın GitHub OAuth sağlayıcısı. **Netlify Identity ve Git Gateway kullanılmıyor** (Git Gateway kullanımdan kalkıyor ve open authoring'i desteklemiyor).
 - Open authoring: öğrenci kendi GitHub hesabıyla girer, repo kendi hesabına fork'lanır, yazı PR olarak gelir. Öğrencinin Netlify hesabı gerekmez.
 
@@ -53,11 +53,11 @@ Netlify'da bir şey değiştirmek istersen dosyayı değiştir (PR ya da doğrud
 
 ## (d) Site adını değiştirme
 
-`katman.netlify.app` dolu olabilir. Öneri: `katman-uskudar`.
+Proje adı: `katmanlar`. Netlify'da projeyi içe aktarırken bu adı verdiysen bu bölümü atla.
 
 1. Netlify > projeyi aç > **Site configuration** > **Site details** > **Change site name** (ekran adı farklı olabilir).
-2. `katman-uskudar` yaz ve **Save**.
-3. Adres `https://katman-uskudar.netlify.app` olur. Bu ad da doluysa başka bir ad dene ve bölüm (i)'yi uygula.
+2. `katmanlar` yaz ve **Save**.
+3. Adres `https://katmanlar.netlify.app` olur. Başka bir ad kullanırsan bölüm (i)'yi uygula.
 
 ## (e) Branches and deploy contexts
 
@@ -84,7 +84,7 @@ OAuth App'i **sadettindemirel kişisel hesabında** kaydet (organizasyonda deği
 3. **OAuth Apps** > **New OAuth App**.
 4. Alanları doldur:
    - **Application name**: `Katman CMS` (istediğin bir ad).
-   - **Homepage URL**: site adresi, örneğin `https://katman-uskudar.netlify.app`.
+   - **Homepage URL**: site adresi, örneğin `https://katmanlar.netlify.app`.
    - **Application description**: isteğe bağlı.
    - **Authorization callback URL**: `https://api.netlify.com/auth/done`
 5. **Register application**.
@@ -105,7 +105,7 @@ OAuth App'i **sadettindemirel kişisel hesabında** kaydet (organizasyonda deği
 
 ## (i) Site adresi değişirse güncellenecek yerler
 
-Site adını ya da alan adını değiştirdiysen (örneğin `katman-uskudar` yerine başka bir ad ya da özel alan adı):
+Site adını ya da alan adını değiştirdiysen (örneğin `katmanlar` yerine başka bir ad ya da özel alan adı):
 
 1. `hugo.yaml` içindeki `baseURL`. Build sırasında `${URL}` ile ezilir (build komutu `netlify.toml`'dadır), ama yine de dosyayı güncel tut.
 2. `static/admin/config.yml` içindeki `site_url` ve `display_url`.

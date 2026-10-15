@@ -19,8 +19,8 @@ backend:
 
 publish_mode: editorial_workflow
 locale: tr
-site_url: https://katman-uskudar.netlify.app
-display_url: https://katman-uskudar.netlify.app
+site_url: https://katmanlar.netlify.app
+display_url: https://katmanlar.netlify.app
 logo_url: /admin/katman-logo.svg
 
 # Decap bu ayarı zorunlu tutuyor. Görseller harici barındırılır (URL ile eklenir);

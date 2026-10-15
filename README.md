@@ -4,7 +4,7 @@
 
 Üsküdar Üniversitesi Yeni Medya ve İletişim Bölümü öğrencilerinin dijital hikâye anlatımı, veri gazeteciliği, veri görselleştirme ve görsel gazetecilik çalışmalarını yayımladığı site.
 
-- Site: https://katman-uskudar.netlify.app (adres kesinleşince güncellenecek)
+- Site: https://katmanlar.netlify.app
 - Yazar paneli: `/admin/`
 
 ## Yapı

@@ -47,7 +47,7 @@ Bilmen gerekenler:
 
 ## 3. Panele giriş
 
-1. Tarayıcında sitenin adresine git ve sonuna `/admin/` ekle. Örnek: `https://katman-uskudar.netlify.app/admin/`
+1. Tarayıcında sitenin adresine git ve sonuna `/admin/` ekle. Örnek: `https://katmanlar.netlify.app/admin/`
 2. **GitHub ile giriş** (Login with GitHub) butonuna tıkla. (Buton adı farklı olabilir.)
 3. Bir pencere (popup) açılır. GitHub'a giriş yapmadıysan giriş yap.
 4. GitHub, "Decap CMS bu izinleri istiyor" gibi bir yetki ekranı gösterir. **Authorize** (Yetki ver) de. Bu uygulama `public_repo` yetkisi ister. Yani genel (public) depolarında işlem yapabilir. Bu yetki, sitenin kopyasını oluşturmak ve yazını göndermek için gerekir.
