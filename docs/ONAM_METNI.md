@@ -8,7 +8,7 @@
 
 **Site:** Katman — Öğrenci perspektifinden veri hikâyeleri
 **Ders:** ____________________  **Dönem:** ____________________
-**Yürüten:** Üsküdar Üniversitesi, Yeni Medya ve İletişim Bölümü, Öğr. Üyesi ____________________
+**Yürüten:** Dr. Sadettin Demirel, Üsküdar Üniversitesi
 
 ### 1. Ne yayımlanacak?
 

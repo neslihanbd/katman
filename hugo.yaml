@@ -53,10 +53,10 @@ markup:
     noClasses: false
 
 params:
-  description: "Öğrenci perspektifinden veri hikâyeleri — Üsküdar Üniversitesi Yeni Medya ve İletişim Bölümü öğrencilerinin veri gazeteciliği çalışmaları."
+  description: "Öğrenci perspektifinden veri hikâyeleri — Dr. Sadettin Demirel'in Üsküdar Üniversitesi'nde verdiği derslerde hazırlanan öğrenci projeleri."
   tagline: "Öğrenci perspektifinden veri hikâyeleri"
   taglineEn: "Layers | Student data stories"
-  kurum: "Üsküdar Üniversitesi, Yeni Medya ve İletişim Bölümü"
+  kurum: "Dr. Sadettin Demirel'in Üsküdar Üniversitesi'nde verdiği derslerde hazırlanan öğrenci projeleri."
   mainSections: [yazilar]
   defaultTheme: auto
   DateFormat: "2 January 2006"

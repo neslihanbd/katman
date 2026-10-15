@@ -31,6 +31,6 @@
   <p class="katman-atif">
     {{- with .Params.author }}{{ . }} {{ end }}({{ .Date.Format "2006" }}). <cite>{{ .Title }}</cite>. {{ site.Title }}
     {{- with .Params.ders }}, {{ . }}{{ end }}
-    {{- with .Params.donemler }}, {{ . }}{{ end }}. {{ site.Params.kurum }}. {{ .Permalink }}
+    {{- with .Params.donemler }}, {{ . }}{{ end }}. {{ .Permalink }}
   </p>
 </section>

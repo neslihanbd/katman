@@ -2,7 +2,7 @@
 
 **Öğrenci perspektifinden veri hikâyeleri** · *Layers | Student data stories*
 
-Üsküdar Üniversitesi Yeni Medya ve İletişim Bölümü öğrencilerinin dijital hikâye anlatımı, veri gazeteciliği, veri görselleştirme ve görsel gazetecilik çalışmalarını yayımladığı site.
+Dr. Sadettin Demirel'in Üsküdar Üniversitesi'nde verdiği derslerde hazırlanan öğrenci projeleri: dijital hikâye anlatımı, veri gazeteciliği, veri görselleştirme ve görsel gazetecilik çalışmaları.
 
 - Site: https://katmanlar.netlify.app
 - Yazar paneli: `/admin/`

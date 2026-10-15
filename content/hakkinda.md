@@ -5,7 +5,7 @@ hideMeta: true
 ShowBreadCrumbs: false
 ---
 
-**Katman**, Üsküdar Üniversitesi Yeni Medya ve İletişim Bölümü öğrencilerinin dijital hikâye anlatımı, veri gazeteciliği, veri görselleştirme ve görsel gazetecilik çalışmalarını yayımladığı bir içerik sitesidir. Çalışmalar ders kapsamında vize ve final ödevi olarak hazırlanır, öğretim üyesi tarafından incelendikten sonra yayımlanır.
+**Katman**, Dr. Sadettin Demirel'in Üsküdar Üniversitesi'nde verdiği derslerde hazırlanan öğrenci projelerini içerir: dijital hikâye anlatımı, veri gazeteciliği, veri görselleştirme ve görsel gazetecilik çalışmaları. Çalışmalar ders kapsamında vize ve final ödevi olarak hazırlanır, öğretim üyesi tarafından incelendikten sonra yayımlanır.
 
 *Layers | Student data stories*
 
