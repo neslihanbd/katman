@@ -4,14 +4,11 @@
 */ -}}
 {{- $p := . }}
 {{- $dosya := .File.Path }}
-{{- $zorunlu := slice "title" "description" "author" "ders" "donemler" "odevler" "soru" "yontem" "sinirliliklar" }}
+{{- $zorunlu := slice "title" "description" "author" "ders" "donemler" "odevler" }}
 {{- range $zorunlu }}
   {{- if not (index $p.Params .) }}
     {{- warnf "KATMAN: %s: '%s' alanı boş." $dosya . }}
   {{- end }}
-{{- end }}
-{{- if not .Params.veri_kaynaklari }}
-  {{- warnf "KATMAN: %s: veri kaynağı girilmemiş." $dosya }}
 {{- end }}
 {{- if .Date.After now }}
   {{- warnf "KATMAN: %s: yayın tarihi ileride (%s). Tarihi kontrol edin." $dosya (.Date.Format "2006-01-02") }}
@@ -42,6 +39,6 @@
 {{- if findRE `!\[\]\(` .RawContent }}
   {{- warnf "KATMAN: %s: metinde alternatif metni boş görsel var." $dosya }}
 {{- end }}
-{{- if findRE `/uploads/` .RawContent }}
+{{- if findRE `(\]\(|src=["']?)/uploads/` .RawContent }}
   {{- warnf "KATMAN: %s: repoya yüklenmiş görsel kullanılıyor (/uploads/). Görseller harici barındırılmalı." $dosya }}
 {{- end }}

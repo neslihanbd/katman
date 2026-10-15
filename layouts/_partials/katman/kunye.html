@@ -14,12 +14,12 @@
     {{- with .GetTerms "odevler" }}
     <div><dt>Ödev türü</dt><dd>{{ range $i, $t := . }}{{ if $i }}, {{ end }}<a href="{{ $t.RelPermalink }}">{{ $t.LinkTitle }}</a>{{ end }}</dd></div>
     {{- end }}
-    {{- with .GetTerms "bicimler" }}
-    <div><dt>Anlatım biçimi</dt><dd>{{ range $i, $t := . }}{{ if $i }}, {{ end }}<a href="{{ $t.RelPermalink }}">{{ $t.LinkTitle }}</a>{{ end }}</dd></div>
-    {{- end }}
     <div><dt>Yayın tarihi</dt><dd><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_long" }}</time></dd></div>
     {{- if and (not .Lastmod.IsZero) (ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02")) }}
     <div><dt>Son güncelleme</dt><dd><time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod | time.Format ":date_long" }}</time></dd></div>
+    {{- end }}
+    {{- with .Params.ilk_yayin }}
+    <div><dt>İlk yayın</dt><dd><a href="{{ . }}" rel="noopener">{{ (urls.Parse .).Host | strings.TrimPrefix "www." }}</a></dd></div>
     {{- end }}
     <div><dt>Kalıcı adres</dt><dd><a href="{{ .Permalink }}">{{ .Permalink }}</a></dd></div>
     {{- with .Params.veri_kaynaklari }}

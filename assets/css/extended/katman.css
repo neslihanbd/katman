@@ -99,6 +99,7 @@
 .katman-kaynaklar li { margin: 4px 0; }
 .katman-kaynak-tarih, .katman-atif { color: var(--secondary); }
 .katman-atif { font-size: 15px; overflow-wrap: anywhere; }
+.katman-ilk-yayin { font-size: 15px; color: var(--secondary); overflow-wrap: anywhere; margin-bottom: 24px; }
 
 /* Arşiv */
 .katman-arsiv-filtre {

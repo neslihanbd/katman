@@ -1,3 +1,0 @@
----
-title: Anlatım biçimleri
----

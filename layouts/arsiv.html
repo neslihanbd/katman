@@ -37,13 +37,6 @@
     </select>
   </div>
   <div>
-    <label for="f-bicim">Anlatım biçimi</label>
-    <select id="f-bicim" data-alan="bicim">
-      <option value="">Tümü</option>
-      {{- range site.Taxonomies.bicimler.Alphabetical }}<option>{{ .Page.LinkTitle }}</option>{{ end }}
-    </select>
-  </div>
-  <div>
     <label for="f-etiket">Konu</label>
     <select id="f-etiket" data-alan="etiket">
       <option value="">Tümü</option>
@@ -64,7 +57,7 @@
       {{- range $yazi := .Pages.ByDate.Reverse }}
       {{- /* Filtre değerleri, seçeneklerle aynı kaynaktan (terim başlıkları) gelir */}}
       {{- $ogeVeri := dict }}
-      {{- range $alan, $tax := dict "donem" "donemler" "odev" "odevler" "bicim" "bicimler" "etiket" "tags" }}
+      {{- range $alan, $tax := dict "donem" "donemler" "odev" "odevler" "etiket" "tags" }}
         {{- $adlar := slice }}
         {{- range $yazi.GetTerms $tax }}{{ $adlar = $adlar | append .LinkTitle }}{{ end }}
         {{- $ogeVeri = merge $ogeVeri (dict $alan (delimit $adlar "|")) }}
@@ -72,7 +65,6 @@
       <li class="katman-arsiv-oge"
           data-donem="{{ $ogeVeri.donem }}"
           data-odev="{{ $ogeVeri.odev }}"
-          data-bicim="{{ $ogeVeri.bicim }}"
           data-etiket="{{ $ogeVeri.etiket }}">
         <a href="{{ .RelPermalink }}">{{ .Title }}</a>
         <span class="katman-arsiv-meta">{{ .Params.author }} · <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_medium" }}</time></span>

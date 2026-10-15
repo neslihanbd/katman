@@ -29,7 +29,6 @@ permalinks:
 
 taxonomies:
   tag: tags          # konu etiketleri
-  bicim: bicimler    # anlatım biçimi
   donem: donemler    # 2026 Güz, 2027 Bahar...
   odev: odevler      # Vize / Final
 

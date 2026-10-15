@@ -79,13 +79,8 @@ Panelde göreceğin alan adları aşağıdakilerle aynıdır. Zorunlu alanları 
 | **Yayın tarihi** | Evet | Gün.Ay.Yıl ve saat. Yazının yayın tarihi olarak gösterilir. Yayından sonra değişmemeli, çünkü yarışmalarda referans olur. Doğru tarihi seç. |
 | **Kapak görseli** | Hayır | Üç alt alanı var (aşağıda). Görsel eklemezsen bu bölümü boş bırak. |
 | **Konu etiketleri** | Evet | Yazının konusu. Örnek: `iklim`, `deprem`, `ulaşım`. Virgülle ayırarak ya da tek tek ekle. |
-| **Anlatım biçimi** | Hayır | Birden fazla seçebilirsin: Veri hikâyesi, Veri görselleştirme, Haritalı anlatım, Zaman çizelgesi, Görsel gazetecilik, Fotoğraf, Video, Etkileşimli anlatım. |
-| **Soru ya da hipotez** | Evet | Yazının cevaplamaya çalıştığı soru ya da sınadığın varsayım. Kısa tut. |
-| **Yöntem** | Evet | Veriyi nasıl topladın, nasıl işledin, hangi aracı kullandın? |
-| **Veri kaynakları** | Evet (en az 1) | Her kaynak için bir kayıt ekle. Aşağıya bak. |
-| **Bulgular özeti** | Hayır | Bulduğun sonuçların kısa özeti. |
-| **Sınırlılıklar** | Evet | Verinin ve yönteminin zayıf yönleri. Ne kadarını söyleyebilirsin, neyi söyleyemezsin? |
 | **Metin** | Evet | Yazının kendisi. Markdown ile yazılır (bölüm 6). |
+| **Veri kaynakları** | Hayır | Metnin altındadır. Yazıda kullandığın verilerin kaynakları; yazının sonunda liste olarak görünür. Aşağıya bak. |
 | **Taslak (yayımlanmasın)** | Hayır | İşaretlersen yazı birleştirilse bile sitede görünmez. Normalde boş bırak. Bunu panelin "Taslak" sütunuyla karıştırma, o ayrı bir şeydir. |
 
 ### Kapak görseli alt alanları
@@ -234,7 +229,7 @@ Ekran adları araçların güncellemelerine göre değişebilir (ekran adı fark
 Göndermeden önce son kontrol listesi:
 
 - [ ] Başlık, özet (200 karakter altı), yazar adı, ders, dönem, ödev türü, tarih dolu.
-- [ ] Soru/hipotez, yöntem, en az bir veri kaynağı ve sınırlılıklar dolu.
+- [ ] Veri kullandıysan kaynaklarını "Veri kaynakları" bölümüne ekledin.
 - [ ] Metindeki her rakamın bir kaynağı var.
 - [ ] Kapak görseli eklediysen alternatif metin ve kaynak/telif notu dolu.
 - [ ] Tüm görsellerin lisansı uygun, kaynağı yazılı.

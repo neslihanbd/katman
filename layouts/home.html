@@ -28,7 +28,7 @@
 
 <nav class="katman-bolum katman-filtre" aria-labelledby="goz-at-baslik">
   <h2 id="goz-at-baslik" class="katman-bolum__baslik">Göz at</h2>
-  {{- range $tax := slice (dict "ad" "donemler" "baslik" "Dönem") (dict "ad" "odevler" "baslik" "Ödev türü") (dict "ad" "bicimler" "baslik" "Anlatım biçimi") (dict "ad" "tags" "baslik" "Konu") }}
+  {{- range $tax := slice (dict "ad" "donemler" "baslik" "Dönem") (dict "ad" "odevler" "baslik" "Ödev türü") (dict "ad" "tags" "baslik" "Konu") }}
   {{- with index site.Taxonomies $tax.ad }}
   <div class="katman-filtre__grup">
     <h3>{{ $tax.baslik }}</h3>

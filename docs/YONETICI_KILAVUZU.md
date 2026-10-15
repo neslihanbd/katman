@@ -49,7 +49,7 @@ Her PR için sırayla:
    - Yayınlanmış bir yazıda `date` değişikliği.
    - Birden fazla yazı dosyası (her öğrenci PR'ı tek yazı içermeli; istisna kararı sende).
 5. **Front matter kontrolü.** Dosyanın başındaki `---` arası alanlara bak:
-   - `title`, `description` (en fazla 200 karakter), `author`, `ders`, `donemler` (örnek: `2026 Güz`), `odevler` (Vize/Final), `date`, `soru`, `yontem`, `veri_kaynaklari`, `sinirliliklar` dolu mu?
+   - `title`, `description` (en fazla 200 karakter), `author`, `ders`, `donemler` (örnek: `2026 Güz`), `odevler` (Vize/Final), `date` dolu mu? (`veri_kaynaklari` isteğe bağlıdır.)
    - `author` alanı o öğrencinin gerçek adı mı? PR'ı açan GitHub kullanıcısıyla öğrenci listesini eşleştir.
    - Öğrenci numarası ya da kimlik verisi yok mu?
    - `draft: true` ise yazı yayımlanmaz. Bilerek mi?
@@ -173,6 +173,17 @@ Kontroller:
 - Listedeki dosya adı gerçekten var mı? Yazım hatasını kontrol et.
 - Bir öğrenci PR'ında `data/` değişikliği varsa reddet (bölüm 2).
 
+### Başka bir sitede önce yayımlanmış yazılar
+
+Yazı daha önce başka bir yerde (örneğin haberuskudar.com) yayımlandıysa dosyanın front matter'ına iki satır ekle:
+
+```yaml
+ilk_yayin: "https://haberuskudar.com/haberin-adresi"
+canonicalURL: "https://haberuskudar.com/haberin-adresi"
+```
+
+`ilk_yayin` künyede ve yazının sonunda "Bu yazı ilk olarak ... adresinde yayımlandı" bağlantısı olarak görünür. `canonicalURL` arama motorlarına asıl kaynağı bildirir (kopya içerik sayılmaz). Bu alanlar öğrenci formunda yoktur.
+
 ## 7. Rakam ve kaynak tutarlılığı kontrol listesi
 
 Her yazı için:
@@ -185,8 +196,8 @@ Her yazı için:
 - [ ] **Grafik ile metin uyumlu mu?** Metnin söylediği rakam grafikteki değerle aynı mı? Eksen başlangıcı yanıltıcı mı?
 - [ ] **Kaynak bağlantıları çalışıyor mu?** Veri kaynakları listesindeki ve metindeki bağlantılara tıkla. Kırık ya da yanlış sayfaya gidiyorsa düzelttir.
 - [ ] Kaynak **veri tarihi** yazılı mı? Verinin eski olup olmadığı belli mi?
-- [ ] Soru/hipotez, yöntem, bulgular ve sınırlılıklar birbiriyle tutarlı mı? Bulgular verinin söyleyebileceğinden fazlasını iddia etmiyor mu (nedensellik)?
-- [ ] Yöntem, rakamların nasıl üretildiğini tekrarlanabilir şekilde anlatıyor mu?
+- [ ] Metin, verinin söyleyebileceğinden fazlasını iddia etmiyor mu (nedensellik)?
+- [ ] Rakamların nasıl üretildiği metinde anlaşılır mı?
 - [ ] **Görsel telifi:** Her görselin kaynağı ve lisansı yazılı mı? Telifli görsel izinsiz kullanılmış mı?
 - [ ] **Alt metin:** Kapak görseli ve metin içi görsellerde anlamlı alt metin var mı?
 - [ ] **Kişisel veri / KVKK riski:** Yazıda gerçek kişilerin adı, telefon, adres, sağlık verisi, ekran görüntülerinde kişi bilgisi ya da yeniden tanımlanabilir mikro veri var mı? Öğrenci numarası var mı?

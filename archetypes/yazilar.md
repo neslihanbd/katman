@@ -11,15 +11,7 @@ cover:
   alt: ""
   caption: ""              # görsel kaynağı / telif notu
 tags: []                   # konu etiketleri
-bicimler: []               # anlatım biçimi
-soru: ""
-yontem: ""
-veri_kaynaklari:
-  - ad: ""
-    baglanti: ""
-    tarih: ""
-bulgular: ""
-sinirliliklar: ""
+veri_kaynaklari: []        # isteğe bağlı: - {ad: "", baglanti: "", tarih: ""}
 draft: true
 # Vitrin ve yarışma bilgileri burada değil: data/vitrin.yaml, data/yarismalar.yaml
 ---

@@ -1,0 +1,25 @@
+{{- /* Metnin altı: veri kaynakları (varsa) ve atıf satırı. */ -}}
+<section class="katman-arastirma" aria-label="Kaynaklar ve atıf">
+  {{- with .Params.veri_kaynaklari }}
+  <h2 id="veri-kaynaklari">Veri kaynakları</h2>
+  <ol class="katman-kaynaklar">
+    {{- range . }}
+    <li>
+      {{- if .baglanti }}<a href="{{ .baglanti }}" rel="noopener">{{ .ad }}</a>{{ else }}{{ .ad }}{{ end }}
+      {{- with .tarih }} <span class="katman-kaynak-tarih">({{ . }})</span>{{ end }}
+    </li>
+    {{- end }}
+  </ol>
+  {{- end }}
+
+  {{- with .Params.ilk_yayin }}
+  <p class="katman-ilk-yayin">Bu yazı ilk olarak <a href="{{ . }}" rel="noopener">{{ (urls.Parse .).Host | strings.TrimPrefix "www." }}</a> adresinde yayımlandı: <a href="{{ . }}" rel="noopener">{{ . }}</a></p>
+  {{- end }}
+
+  <h2>Atıf</h2>
+  <p class="katman-atif">
+    {{- with .Params.author }}{{ . }} {{ end }}({{ .Date.Format "2006" }}). <cite>{{ .Title }}</cite>. {{ site.Title }}
+    {{- with .Params.ders }}, {{ . }}{{ end }}
+    {{- with .Params.donemler }}, {{ . }}{{ end }}. {{ .Permalink }}
+  </p>
+</section>
