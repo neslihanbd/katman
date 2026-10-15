@@ -1,0 +1,36 @@
+# Katman — Netlify yapılandırması
+# Kredi: production deploy 15 kredi, deploy preview / branch deploy ücretsiz.
+# Production yalnızca main dalına merge'de çalışır. Branch deploy'lar Netlify
+# arayüzünden kapatılır (Branches and deploy contexts > Branch deploys: None).
+
+[build]
+  publish = "public"
+  command = "hugo build --gc --minify --baseURL \"${URL}/\""
+  # Yalnızca docs/ veya README.md değiştiyse build'i atla (kredi harcanmaz).
+  # Çıkış kodu 0 = atla, 0 dışı = build et. İlk build'de karşılaştırma yapılamaz, build edilir.
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ':(exclude)docs' ':(exclude)README.md'"
+
+[build.environment]
+  HUGO_VERSION = "0.168.0"
+  GO_VERSION = "1.27.2"
+  TZ = "Europe/Istanbul"
+
+# Pull request önizlemeleri: kendi adresiyle, arama motorlarına kapalı.
+[context.deploy-preview]
+  command = "hugo build --gc --minify --environment preview --baseURL \"${DEPLOY_PRIME_URL}/\""
+
+[context.branch-deploy]
+  command = "hugo build --gc --minify --environment preview --baseURL \"${DEPLOY_PRIME_URL}/\""
+
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+    Cache-Control = "no-cache"

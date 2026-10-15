@@ -1,0 +1,29 @@
+{{- /* Künye kutusu: yazar, ders, dönem, ödev türü, tarih, kalıcı adres. */ -}}
+<aside class="katman-kunye" aria-labelledby="kunye-baslik">
+  <h2 id="kunye-baslik" class="katman-kunye__baslik">Künye</h2>
+  <dl>
+    {{- with .Params.author }}
+    <div><dt>Yazar</dt><dd>{{ . }}</dd></div>
+    {{- end }}
+    {{- with .Params.ders }}
+    <div><dt>Ders</dt><dd>{{ . }}</dd></div>
+    {{- end }}
+    {{- with .GetTerms "donemler" }}
+    <div><dt>Dönem</dt><dd>{{ range $i, $t := . }}{{ if $i }}, {{ end }}<a href="{{ $t.RelPermalink }}">{{ $t.LinkTitle }}</a>{{ end }}</dd></div>
+    {{- end }}
+    {{- with .GetTerms "odevler" }}
+    <div><dt>Ödev türü</dt><dd>{{ range $i, $t := . }}{{ if $i }}, {{ end }}<a href="{{ $t.RelPermalink }}">{{ $t.LinkTitle }}</a>{{ end }}</dd></div>
+    {{- end }}
+    {{- with .GetTerms "bicimler" }}
+    <div><dt>Anlatım biçimi</dt><dd>{{ range $i, $t := . }}{{ if $i }}, {{ end }}<a href="{{ $t.RelPermalink }}">{{ $t.LinkTitle }}</a>{{ end }}</dd></div>
+    {{- end }}
+    <div><dt>Yayın tarihi</dt><dd><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_long" }}</time></dd></div>
+    {{- if and (not .Lastmod.IsZero) (ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02")) }}
+    <div><dt>Son güncelleme</dt><dd><time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod | time.Format ":date_long" }}</time></dd></div>
+    {{- end }}
+    <div><dt>Kalıcı adres</dt><dd><a href="{{ .Permalink }}">{{ .Permalink }}</a></dd></div>
+    {{- with .Params.veri_kaynaklari }}
+    <div><dt>Kaynaklar</dt><dd><a href="#veri-kaynaklari">{{ len . }} veri kaynağı</a></dd></div>
+    {{- end }}
+  </dl>
+</aside>

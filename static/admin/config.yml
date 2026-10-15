@@ -1,0 +1,205 @@
+# Katman — Decap CMS yapılandırması
+# Öğrenciler kendi GitHub hesaplarıyla girer; repo otomatik fork'lanır,
+# gönderiler pull request olarak gelir (open authoring + editorial workflow).
+
+backend:
+  name: github
+  repo: sadettindemirel/katman
+  branch: main
+  open_authoring: true
+  # base_url verilmezse Decap, Netlify'ın OAuth sağlayıcısını (api.netlify.com) kullanır.
+  # Kendi OAuth proxy'nizi kullanırsanız: base_url: https://<proxy-adresi>
+  commit_messages:
+    create: "Yeni yazı: {{slug}}"
+    update: "Yazı güncellendi: {{slug}}"
+    delete: "Yazı silindi: {{slug}}"
+    uploadMedia: "Medya yüklendi: {{path}}"
+    deleteMedia: "Medya silindi: {{path}}"
+    openAuthoring: "{{message}}"
+
+publish_mode: editorial_workflow
+locale: tr
+site_url: https://katman-uskudar.netlify.app
+display_url: https://katman-uskudar.netlify.app
+logo_url: /admin/katman-logo.svg
+
+# Decap bu ayarı zorunlu tutuyor. Görseller harici barındırılır (URL ile eklenir);
+# bu klasöre yüklenen dosyalar PR incelemesinde reddedilir.
+media_folder: static/uploads
+public_folder: /uploads
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+collections:
+  - name: yazilar
+    label: Yazılar
+    label_singular: Yazı
+    description: "Vize ve final çalışmaların. Zorunlu alanları doldurmadan gönderemezsin."
+    folder: content/yazilar
+    create: true
+    delete: false
+    # Dosya adı = kalıcı adres. Yayından sonra değiştirilmez.
+    slug: "{{year}}-{{slug}}"
+    preview_path: "yazilar/{{slug}}/"
+    summary: "{{title}} — {{author}} ({{donemler}}, {{odevler}})"
+    sortable_fields: [date, title, author]
+    view_filters:
+      - label: Vize
+        field: odevler
+        pattern: Vize
+      - label: Final
+        field: odevler
+        pattern: Final
+    view_groups:
+      - label: Dönem
+        field: donemler
+    fields:
+      # --- Temel bilgiler ---
+      - label: Başlık
+        name: title
+        widget: string
+
+      - label: Özet
+        name: description
+        widget: text
+        hint: "En fazla 200 karakter. Anasayfada ve paylaşım kartlarında görünür."
+        pattern: ['^[\s\S]{1,200}$', "Özet en fazla 200 karakter olmalı."]
+
+      - label: Yazar (ad soyad)
+        name: author
+        widget: string
+        hint: "Yalnızca adın ve soyadın. Öğrenci numarası yazma."
+
+      - label: Ders adı
+        name: ders
+        widget: string
+
+      - label: Dönem
+        name: donemler
+        widget: string
+        default: "2026 Güz"
+        hint: "Biçim: YIL Güz / Bahar / Yaz (örnek: 2026 Güz)"
+        pattern: ['^\d{4} (Güz|Bahar|Yaz)$', "Örnek biçim: 2026 Güz"]
+
+      - label: Ödev türü
+        name: odevler
+        widget: select
+        options: [Vize, Final]
+
+      - label: Yayın tarihi
+        name: date
+        widget: datetime
+        format: "YYYY-MM-DDTHH:mm:ssZ"
+        date_format: "DD.MM.YYYY"
+        time_format: "HH:mm"
+
+      # --- Kapak görseli (harici URL) ---
+      - label: Kapak görseli
+        name: cover
+        widget: object
+        required: false
+        collapsed: false
+        fields:
+          - label: Görsel adresi (https://...)
+            name: image
+            widget: string
+            required: false
+            hint: "Görseli kendi hesabında (ör. Flickr, Imgur, Wikimedia) barındır ve doğrudan bağlantısını yapıştır. Dosya yükleme kapalıdır."
+            pattern: ['^$|^https://\S+$', "https:// ile başlayan bir adres olmalı."]
+          - label: Alternatif metin
+            name: alt
+            widget: string
+            required: false
+            hint: "Görme engelli okurlar için görseli bir cümleyle anlat. Görsel eklediysen zorunlu."
+          - label: Görsel kaynağı / telif notu
+            name: caption
+            widget: string
+            required: false
+            hint: "Örnek: Fotoğraf: Ad Soyad, CC BY 4.0"
+
+      # --- Etiketler ---
+      - label: Konu etiketleri
+        name: tags
+        widget: list
+        allow_add: true
+        hint: "Virgülle ayır. Örnek: iklim, deprem, ulaşım"
+
+      - label: Anlatım biçimi
+        name: bicimler
+        widget: select
+        multiple: true
+        required: false
+        options:
+          - Veri hikâyesi
+          - Veri görselleştirme
+          - Haritalı anlatım
+          - Zaman çizelgesi
+          - Görsel gazetecilik
+          - Fotoğraf
+          - Video
+          - Etkileşimli anlatım
+
+      # --- Araştırma künyesi ---
+      # Zorunluluğu kapatmak için ilgili alanda "required: true" → "required: false" yapın.
+      - label: Soru ya da hipotez
+        name: soru
+        widget: text
+        required: true
+
+      - label: Yöntem
+        name: yontem
+        widget: text
+        required: true
+
+      - label: Veri kaynakları
+        name: veri_kaynaklari
+        widget: list
+        required: true
+        min: 1
+        summary: "{{fields.ad}}"
+        fields:
+          - label: Kaynak adı
+            name: ad
+            widget: string
+          - label: Bağlantı
+            name: baglanti
+            widget: string
+            required: false
+            pattern: ['^$|^https?://\S+$', "http:// ya da https:// ile başlamalı."]
+          - label: Veri tarihi
+            name: tarih
+            widget: string
+            required: false
+            hint: "Verinin ait olduğu dönem ya da erişim tarihi. Örnek: 2025, Mart 2026"
+
+      - label: Bulgular özeti
+        name: bulgular
+        widget: text
+        required: false
+
+      - label: Sınırlılıklar
+        name: sinirliliklar
+        widget: text
+        required: true
+
+      # --- Gövde ---
+      - label: Metin
+        name: body
+        widget: markdown
+        # Yalnızca ham (markdown) mod: yapıştırılan gömme kodları (iframe/script) bozulmadan saklanır.
+        modes: [raw]
+        # Görsel yükleme bileşeni kapalı; görseller ![açıklama](https://...) ile eklenir.
+        editor_components: []
+        sanitize_preview: true
+
+      - label: Taslak (yayımlanmasın)
+        name: draft
+        widget: boolean
+        default: false
+        required: false
+        hint: "İşaretliyse yazı birleştirilse bile sitede görünmez."
+
+# Vitrin ve yarışma bilgileri öğrenci formunda yoktur; yönetici
+# data/vitrin.yaml ve data/yarismalar.yaml dosyalarını GitHub'da düzenler.

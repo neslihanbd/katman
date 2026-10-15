@@ -1,0 +1,61 @@
+{{- define "main" }}
+{{- $yazilar := where site.RegularPages "Section" "yazilar" }}
+
+<header class="katman-hero">
+  <h1 class="katman-hero__baslik">{{ site.Title }}</h1>
+  <p class="katman-hero__alt">{{ site.Params.tagline }}</p>
+  <p class="katman-hero__alt-en" lang="en">{{ site.Params.taglineEn }}</p>
+  <p class="katman-hero__kurum">{{ site.Params.kurum }}</p>
+</header>
+
+{{- /* Vitrin: data/vitrin.yaml içindeki dosya adlarının sırasıyla */}}
+{{- $vitrin := slice }}
+{{- range (hugo.Data.vitrin | default slice) }}
+  {{- with site.GetPage (printf "/yazilar/%s" .) }}
+    {{- $vitrin = $vitrin | append . }}
+  {{- else }}
+    {{- warnf "KATMAN: data/vitrin.yaml: %q adlı yazı bulunamadı (yayımlanmamış ya da dosya adı hatalı)." . }}
+  {{- end }}
+{{- end }}
+{{- with $vitrin }}
+<section class="katman-bolum" aria-labelledby="vitrin-baslik">
+  <h2 id="vitrin-baslik" class="katman-bolum__baslik">Vitrin</h2>
+  <div class="katman-izgara">
+    {{- range . }}{{ partial "katman/kart.html" . }}{{ end }}
+  </div>
+</section>
+{{- end }}
+
+<nav class="katman-bolum katman-filtre" aria-labelledby="goz-at-baslik">
+  <h2 id="goz-at-baslik" class="katman-bolum__baslik">Göz at</h2>
+  {{- range $tax := slice (dict "ad" "donemler" "baslik" "Dönem") (dict "ad" "odevler" "baslik" "Ödev türü") (dict "ad" "bicimler" "baslik" "Anlatım biçimi") (dict "ad" "tags" "baslik" "Konu") }}
+  {{- with index site.Taxonomies $tax.ad }}
+  <div class="katman-filtre__grup">
+    <h3>{{ $tax.baslik }}</h3>
+    <ul class="terms-tags">
+      {{- $terimler := .ByCount }}
+      {{- if eq $tax.ad "tags" }}{{ $terimler = first 15 $terimler }}{{ end }}
+      {{- range $terimler }}
+      <li><a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }} <sup>{{ .Count }}</sup></a></li>
+      {{- end }}
+    </ul>
+  </div>
+  {{- end }}
+  {{- end }}
+  <p><a href="{{ "arsiv/" | relURL }}">Tüm yazılar ve ayrıntılı filtre →</a></p>
+</nav>
+
+<section class="katman-bolum" aria-labelledby="son-baslik">
+  <h2 id="son-baslik" class="katman-bolum__baslik">Son yazılar</h2>
+  {{- with $yazilar }}
+  <div class="katman-izgara">
+    {{- range first 9 .ByDate.Reverse }}{{ partial "katman/kart.html" . }}{{ end }}
+  </div>
+  {{- if gt (len .) 9 }}
+  <p><a href="{{ "arsiv/" | relURL }}">Arşivde tüm yazılar ({{ len . }}) →</a></p>
+  {{- end }}
+  {{- else }}
+  <p>Henüz yayımlanmış yazı yok. İlk çalışmalar yakında burada.</p>
+  {{- end }}
+</section>
+{{- end }}

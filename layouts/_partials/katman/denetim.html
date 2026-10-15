@@ -1,0 +1,47 @@
+{{- /*
+  İçerik denetimi: build'i kırmaz, Netlify deploy log'una "KATMAN:" ile başlayan
+  uyarılar yazar. Zorunlu alan listesini değiştirmek için $zorunlu'yu düzenleyin.
+*/ -}}
+{{- $p := . }}
+{{- $dosya := .File.Path }}
+{{- $zorunlu := slice "title" "description" "author" "ders" "donemler" "odevler" "soru" "yontem" "sinirliliklar" }}
+{{- range $zorunlu }}
+  {{- if not (index $p.Params .) }}
+    {{- warnf "KATMAN: %s: '%s' alanı boş." $dosya . }}
+  {{- end }}
+{{- end }}
+{{- if not .Params.veri_kaynaklari }}
+  {{- warnf "KATMAN: %s: veri kaynağı girilmemiş." $dosya }}
+{{- end }}
+{{- if .Date.After now }}
+  {{- warnf "KATMAN: %s: yayın tarihi ileride (%s). Tarihi kontrol edin." $dosya (.Date.Format "2006-01-02") }}
+{{- end }}
+{{- with .Params.description }}
+  {{- if gt (strings.RuneCount .) 200 }}
+    {{- warnf "KATMAN: %s: özet %d karakter (en fazla 200)." $dosya (strings.RuneCount .) }}
+  {{- end }}
+{{- end }}
+{{- with .Params.donemler }}
+  {{- if not (findRE `^\d{4} (Güz|Bahar|Yaz)$` (string .)) }}
+    {{- warnf "KATMAN: %s: dönem biçimi hatalı: %q (örnek: 2026 Güz)." $dosya . }}
+  {{- end }}
+{{- end }}
+{{- with .Params.odevler }}
+  {{- if not (in (slice "Vize" "Final") (string .)) }}
+    {{- warnf "KATMAN: %s: ödev türü Vize ya da Final olmalı: %q." $dosya . }}
+  {{- end }}
+{{- end }}
+{{- with .Params.cover.image }}
+  {{- if not $p.Params.cover.alt }}
+    {{- warnf "KATMAN: %s: kapak görselinin alternatif metni yok." $dosya }}
+  {{- end }}
+  {{- if not $p.Params.cover.caption }}
+    {{- warnf "KATMAN: %s: kapak görselinin kaynak/telif notu yok." $dosya }}
+  {{- end }}
+{{- end }}
+{{- if findRE `!\[\]\(` .RawContent }}
+  {{- warnf "KATMAN: %s: metinde alternatif metni boş görsel var." $dosya }}
+{{- end }}
+{{- if findRE `/uploads/` .RawContent }}
+  {{- warnf "KATMAN: %s: repoya yüklenmiş görsel kullanılıyor (/uploads/). Görseller harici barındırılmalı." $dosya }}
+{{- end }}

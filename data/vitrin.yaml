@@ -1,0 +1,7 @@
+# Vitrin: anasayfadaki "Vitrin" bölümünde gösterilecek yazılar.
+# Yalnızca yönetici düzenler. Her satır bir yazının dosya adıdır
+# (content/yazilar/ altındaki adı, .md olmadan). Sıra = gösterim sırası.
+#
+# Örnek:
+# - 2026-istanbulda-kira-artisi
+[]

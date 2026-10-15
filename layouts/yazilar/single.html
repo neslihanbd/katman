@@ -1,0 +1,48 @@
+{{- define "main" }}
+{{- partial "katman/denetim.html" . }}
+{{- $slug := .File.ContentBaseName }}
+{{- $yarismalar := index (hugo.Data.yarismalar | default dict) $slug }}
+
+<article class="post-single">
+  <header class="post-header">
+    {{ partial "breadcrumbs.html" . }}
+    <h1 class="post-title">{{ .Title }}</h1>
+    {{- with .Description }}
+    <div class="post-description">{{ . }}</div>
+    {{- end }}
+    <div class="post-meta">
+      {{- with .Params.author }}<span>{{ . }}</span>&nbsp;·&nbsp;{{ end }}
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_long" }}</time>
+      {{- if (.Param "ShowReadingTime") }}&nbsp;·&nbsp;<span>{{ i18n "read_time" .ReadingTime }}</span>{{ end }}
+    </div>
+    {{- with $yarismalar }}
+    <ul class="katman-yarisma" aria-label="Yarışmalar">
+      {{- range . }}
+      <li><span class="katman-rozet katman-rozet--yarisma">{{ .sonuc | default "Katıldı" }}</span> {{ .ad }}{{ with .yil }} ({{ . }}){{ end }}</li>
+      {{- end }}
+    </ul>
+    {{- end }}
+  </header>
+
+  {{- partial "katman/kunye.html" . }}
+
+  {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" false) }}
+
+  <div class="post-content md-content">
+    {{- partial "anchored_headings.html" .Content -}}
+  </div>
+
+  {{- partial "katman/arastirma.html" . }}
+
+  <footer class="post-footer">
+    {{- with .GetTerms "tags" }}
+    <ul class="post-tags" aria-label="Konu etiketleri">
+      {{- range . }}<li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>{{ end }}
+    </ul>
+    {{- end }}
+    {{- if (.Param "ShowPostNavLinks") }}
+    {{- partial "post_nav_links.html" . }}
+    {{- end }}
+  </footer>
+</article>
+{{- end }}

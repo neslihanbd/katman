@@ -1,0 +1,92 @@
+{{- define "main" }}
+{{- $yazilar := where site.RegularPages "Section" "yazilar" }}
+
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}<div class="post-description">{{ . }}</div>{{ end }}
+</header>
+
+{{- /* Dönemleri kronolojik sırala: yıl*10 + (Bahar=1, Yaz=2, Güz=3), yeniden eskiye */}}
+{{- $sira := dict "Bahar" 1 "Yaz" 2 "Güz" 3 }}
+{{- $donemler := slice }}
+{{- range $ad, $sayfalar := site.Taxonomies.donemler }}
+  {{- $terim := $sayfalar.Page.LinkTitle }}
+  {{- $anahtar := 0 }}
+  {{- /* Biçimi bozuk dönemler build'i kırmaz, listenin sonuna düşer (denetim uyarı verir). */}}
+  {{- if findRE `^\d{4} (Güz|Bahar|Yaz)$` $terim }}
+    {{- $parca := split $terim " " }}
+    {{- $anahtar = add (mul (int (index $parca 0)) 10) (index $sira (index $parca 1)) }}
+  {{- end }}
+  {{- $donemler = $donemler | append (dict "ad" $terim "anahtar" $anahtar "sayfalar" $sayfalar.Pages) }}
+{{- end }}
+
+{{- with $yazilar }}
+<form class="katman-arsiv-filtre" id="arsiv-filtre" hidden aria-describedby="arsiv-sonuc">
+  <div>
+    <label for="f-donem">Dönem</label>
+    <select id="f-donem" data-alan="donem">
+      <option value="">Tümü</option>
+      {{- range sort $donemler "anahtar" "desc" }}<option>{{ .ad }}</option>{{ end }}
+    </select>
+  </div>
+  <div>
+    <label for="f-odev">Ödev türü</label>
+    <select id="f-odev" data-alan="odev">
+      <option value="">Tümü</option>
+      {{- range site.Taxonomies.odevler }}<option>{{ .Page.LinkTitle }}</option>{{ end }}
+    </select>
+  </div>
+  <div>
+    <label for="f-bicim">Anlatım biçimi</label>
+    <select id="f-bicim" data-alan="bicim">
+      <option value="">Tümü</option>
+      {{- range site.Taxonomies.bicimler.Alphabetical }}<option>{{ .Page.LinkTitle }}</option>{{ end }}
+    </select>
+  </div>
+  <div>
+    <label for="f-etiket">Konu</label>
+    <select id="f-etiket" data-alan="etiket">
+      <option value="">Tümü</option>
+      {{- range site.Taxonomies.tags.Alphabetical }}<option>{{ .Page.LinkTitle }}</option>{{ end }}
+    </select>
+  </div>
+</form>
+<p id="arsiv-sonuc" class="katman-arsiv-sonuc" aria-live="polite">{{ len . }} yazı</p>
+
+{{- range sort $donemler "anahtar" "desc" }}
+<section class="katman-arsiv-donem" data-donem-grup="{{ .ad }}">
+  <h2>{{ .ad }}</h2>
+  {{- /* "desc" sırası: Vize, Final (alfabetik tersi) */}}
+  {{- range .sayfalar.GroupByParam "odevler" "desc" }}
+  <div class="katman-arsiv-tur" data-tur-grup>
+    <h3>{{ .Key }}</h3>
+    <ul class="katman-arsiv-liste">
+      {{- range $yazi := .Pages.ByDate.Reverse }}
+      {{- /* Filtre değerleri, seçeneklerle aynı kaynaktan (terim başlıkları) gelir */}}
+      {{- $ogeVeri := dict }}
+      {{- range $alan, $tax := dict "donem" "donemler" "odev" "odevler" "bicim" "bicimler" "etiket" "tags" }}
+        {{- $adlar := slice }}
+        {{- range $yazi.GetTerms $tax }}{{ $adlar = $adlar | append .LinkTitle }}{{ end }}
+        {{- $ogeVeri = merge $ogeVeri (dict $alan (delimit $adlar "|")) }}
+      {{- end }}
+      <li class="katman-arsiv-oge"
+          data-donem="{{ $ogeVeri.donem }}"
+          data-odev="{{ $ogeVeri.odev }}"
+          data-bicim="{{ $ogeVeri.bicim }}"
+          data-etiket="{{ $ogeVeri.etiket }}">
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        <span class="katman-arsiv-meta">{{ .Params.author }} · <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_medium" }}</time></span>
+      </li>
+      {{- end }}
+    </ul>
+  </div>
+  {{- end }}
+</section>
+{{- end }}
+{{- else }}
+<p>Henüz yayımlanmış yazı yok.</p>
+{{- end }}
+
+{{- $js := resources.Get "js/arsiv-filtre.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{- end }}

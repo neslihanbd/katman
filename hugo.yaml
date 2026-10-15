@@ -1,0 +1,93 @@
+# Katman — Hugo yapılandırması
+# Tema (PaperMod) Hugo modülü olarak gelir; sürüm go.mod içinde sabitlenir.
+# Temaya dokunulmaz, tüm değişiklikler layouts/, assets/ ve i18n/ altındadır.
+
+baseURL: https://katman-uskudar.netlify.app/   # Netlify'da build komutu --baseURL ile ezer
+locale: tr-TR
+defaultContentLanguage: tr
+title: Katman
+copyright: "Yazıların hakları yazarlarına aittir."
+enableRobotsTXT: true
+removePathAccents: true   # /donemler/2026-guz/ gibi ASCII adresler
+capitalizeListTitles: false   # Hugo İngilizce kurallarla büyütür (istanbul → Istanbul); terimler yazıldığı gibi kalsın
+enableEmoji: false
+# İleri tarihli yazılar da yayımlanır; denetim uyarı verir (bkz. layouts/_partials/katman/denetim.html).
+buildFuture: true
+timeZone: Europe/Istanbul
+
+module:
+  hugoVersion:
+    extended: false
+    min: 0.160.0
+  imports:
+    - path: github.com/adityatelange/hugo-PaperMod
+
+# Kalıcı adresler: dosya adı (Decap'te yıl-başlık) yayından sonra değiştirilmez.
+permalinks:
+  page:
+    yazilar: /yazilar/:contentbasename/
+
+taxonomies:
+  tag: tags          # konu etiketleri
+  bicim: bicimler    # anlatım biçimi
+  donem: donemler    # 2026 Güz, 2027 Bahar...
+  odev: odevler      # Vize / Final
+
+pagination:
+  pagerSize: 12
+
+outputs:
+  home: [HTML, RSS, JSON]
+
+services:
+  rss:
+    limit: 50
+
+markup:
+  goldmark:
+    renderer:
+      # Öğrencilerin gömme kodları (iframe, script) olduğu gibi çalışsın diye açık.
+      # Güvenlik denetimi PR incelemesinde yapılır (bkz. docs/YONETICI_KILAVUZU.md).
+      unsafe: true
+  highlight:
+    noClasses: false
+
+params:
+  description: "Öğrenci perspektifinden veri hikâyeleri — Üsküdar Üniversitesi Yeni Medya ve İletişim Bölümü öğrencilerinin veri gazeteciliği çalışmaları."
+  tagline: "Öğrenci perspektifinden veri hikâyeleri"
+  taglineEn: "Layers | Student data stories"
+  kurum: "Üsküdar Üniversitesi, Yeni Medya ve İletişim Bölümü"
+  mainSections: [yazilar]
+  defaultTheme: auto
+  DateFormat: "2 January 2006"
+  ShowReadingTime: true
+  ShowBreadCrumbs: true
+  ShowPostNavLinks: true
+  ShowShareButtons: false
+  ShowCodeCopyButtons: false
+  ShowToc: false
+  disableSpecial1stPost: true
+  hideFooter: false
+  schema:
+    publisherType: Organization
+  cover:
+    responsiveImages: false
+  assets:
+    disableHLJS: true
+  fuseOpts:
+    keys: [title, permalink, summary, content]
+
+menus:
+  main:
+    - name: Arşiv
+      pageRef: /arsiv
+      weight: 10
+    - name: Ara
+      pageRef: /ara
+      weight: 20
+    - name: Hakkında
+      pageRef: /hakkinda
+      weight: 30
+    - name: Etiketler
+      pageRef: /tags
+      weight: 40

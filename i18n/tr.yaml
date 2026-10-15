@@ -1,0 +1,7 @@
+# Temanın tr.yaml dosyasını tamamlar/ezer.
+- id: skip_to_content
+  translation: "İçeriğe geç"
+- id: read_time
+  translation:
+    one: "1 dk okuma"
+    other: "{{ .Count }} dk okuma"

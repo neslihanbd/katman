@@ -1,0 +1,26 @@
+---
+title: "{{ replace .File.ContentBaseName "-" " " | title }}"
+description: ""            # özet, en fazla 200 karakter
+author: ""                 # ad soyad (öğrenci numarası yok)
+ders: ""
+donemler: "2026 Güz"       # YIL Güz/Bahar/Yaz
+odevler: ""                # Vize ya da Final
+date: {{ .Date }}
+cover:
+  image: ""                # https://... harici görsel
+  alt: ""
+  caption: ""              # görsel kaynağı / telif notu
+tags: []                   # konu etiketleri
+bicimler: []               # anlatım biçimi
+soru: ""
+yontem: ""
+veri_kaynaklari:
+  - ad: ""
+    baglanti: ""
+    tarih: ""
+bulgular: ""
+sinirliliklar: ""
+draft: true
+# Vitrin ve yarışma bilgileri burada değil: data/vitrin.yaml, data/yarismalar.yaml
+---
+

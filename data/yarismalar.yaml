@@ -1,0 +1,9 @@
+# Yarışma bilgileri. Yalnızca yönetici düzenler.
+# Anahtar: yazının dosya adı (.md olmadan). Değer: yarışma listesi.
+#
+# Örnek:
+# 2026-istanbulda-kira-artisi:
+#   - ad: Örnek Veri Gazeteciliği Ödülleri
+#     yil: 2027
+#     sonuc: Finalist
+{}
